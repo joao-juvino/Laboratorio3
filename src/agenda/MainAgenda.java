@@ -103,9 +103,14 @@ public class MainAgenda {
 	 */
 	private static void exibeContato(Agenda agenda, Scanner scanner) {
 		System.out.print("\nQual contato> ");
-		int posicao = scanner.nextInt();
-		Contato contato = agenda.getContato(posicao);
-		System.out.println("Dados do contato:\n" + contato);
+		int posicao = Integer.parseInt(scanner.nextLine());
+
+		if (!agenda.existeContato(posicao)){
+			System.out.println("POSIÇÃO INVÁLIDA!");
+		} else {
+			System.out.println("\n" + agenda.exibeContato(posicao));
+		}
+
 	}
 
 	/**

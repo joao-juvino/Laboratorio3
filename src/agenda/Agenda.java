@@ -48,6 +48,15 @@ public class Agenda {
 		return false;
 	}
 
+	public boolean existeContato(int posicao){
+		if(contatos[posicao] == null) return false;
+		return true;
+	}
+
+	public String exibeContato(int posicao){
+		return contatos[posicao].toString();
+	}
+
 	/**
 	 * Cadastra um contato em uma posição. Um cadastro em uma posição que já existe sobrescreve o anterior. 
 	 * @param posicao Posição do contato.
