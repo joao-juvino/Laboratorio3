@@ -3,25 +3,33 @@ package agenda;
 import java.util.Objects;
 
 public class Contato {
-		private String nome;
-		private String sobrenome;
-		private String telefone;
-		private boolean favorito;
+	private String nome;
+	private String sobrenome;
+	private String telefone;
+	private boolean favorito;
 
 	public Contato(String nome, String sobrenome, String telefone) {
-		 if(nome == null || sobrenome == null) {
-			 throw new NullPointerException();
-		 }
-		 if(nome.equals("") || sobrenome.equals("")) {
-			 throw new IllegalArgumentException();
-		 }
-		 
-		 this.nome = nome;
-		 this.sobrenome = sobrenome;
-		 this.telefone = telefone;
-		 this.favorito = false;
+		if (nome == null || sobrenome == null) {
+			throw new NullPointerException();
+		}
+		if (nome.equals("") || sobrenome.equals("")) {
+			throw new IllegalArgumentException();
+		}
+
+		this.nome = nome;
+		this.sobrenome = sobrenome;
+		this.telefone = telefone;
+		this.favorito = false;
 	}
-	
+
+	public void favoritar(){
+		this.favorito = true;
+	}
+
+	public void desfavoritar(){
+		this.favorito = false;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -33,16 +41,16 @@ public class Contato {
 		Contato other = (Contato) obj;
 		return Objects.equals(nome, other.nome) && Objects.equals(sobrenome, other.sobrenome);
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(nome, sobrenome);
 	}
-	
+
 	public String toString() {
-		return this.nome + " " + this.sobrenome
+		return (this.favorito ? "❤️ " : "") + this.nome + " " + this.sobrenome
 				+ "\n" + this.telefone;
-}
+	}
 
 	public String getNome() {
 		return nome;
@@ -67,5 +75,5 @@ public class Contato {
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
-	
+
 }

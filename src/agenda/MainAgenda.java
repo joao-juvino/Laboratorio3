@@ -48,6 +48,9 @@ public class MainAgenda {
 						"(C)adastrar Contato\n" +
 						"(L)istar Contatos\n" +
 						"(E)xibir Contato\n" +
+						"(F)avoritos\n" +
+						"(A)dicionar Favorito\n" +
+						"(R)emover Favorito\n" +
 						"(S)air\n" +
 						"\n" +
 						"Opção> ");
@@ -74,6 +77,15 @@ public class MainAgenda {
 				break;
 			case "S":
 				sai();
+				break;
+			case "A":
+				adicionaFavorito(agenda, scanner);
+				break;
+			case "F":
+				listaFavoritos(agenda);
+				break;
+			case "R":
+				removeFavorito(agenda, scanner);
 				break;
 			default:
 				System.out.println("Opção inválida!");
@@ -133,6 +145,27 @@ public class MainAgenda {
 			agenda.cadastraContato(posicao, nome, sobrenome, telefone);
 			System.out.println("\nCADASTRO REALIZADO");
 		}
+	}
+
+	public static void adicionaFavorito(Agenda agenda, Scanner scanner){
+		System.out.print("\nContato> ");
+		int contato = Integer.parseInt(scanner.nextLine());
+		System.out.print("\nPosicao> ");
+		int posicao = Integer.parseInt(scanner.nextLine());
+		
+		agenda.adicionaFavorito(contato, posicao);
+		System.out.println("CONTATO FAVORITADO NA POSIÇÃO " + posicao + "!");
+	}
+	
+	public static void listaFavoritos(Agenda agenda){
+		System.out.print(agenda.listaFavoritos());
+	}
+
+	public static void removeFavorito(Agenda agenda, Scanner scanner){
+		System.out.print("\nPosicao> ");
+		int posicao = Integer.parseInt(scanner.nextLine());
+
+		agenda.removeFavorito(posicao);
 	}
 
 	/**

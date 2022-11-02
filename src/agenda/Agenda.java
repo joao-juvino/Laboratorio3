@@ -1,9 +1,5 @@
 package agenda;
 
-import java.util.Arrays;
-
-import org.junit.jupiter.api.extension.ConditionEvaluationResult;
-
 /**
  * Uma agenda que mantém uma lista de contatos com posições. Podem existir 100
  * contatos.
@@ -16,13 +12,14 @@ public class Agenda {
 	private static final int TAMANHO_AGENDA = 100;
 	private static final int TAMANHO_FAVORITOS = 10;
 	private Contato[] contatos;
-	private Contato[] favorito;
+	private Contato[] favoritos;
 
 	/**
 	 * Cria uma agenda.
 	 */
 	public Agenda() {
 		this.contatos = new Contato[TAMANHO_AGENDA];
+		this.favoritos = new Contato[TAMANHO_FAVORITOS];
 	}
 
 	/**
@@ -54,6 +51,17 @@ public class Agenda {
 		return false;
 	}
 
+	private boolean verificaFavorito(String nome, String sobrenome) {
+		for (int i = 0; i < this.favoritos.length; i++) {
+			if (this.favoritos[i] != null) {
+				if (this.favoritos[i].getNome().equals(nome) && this.favoritos[i].getSobrenome().equals(sobrenome)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
 	public boolean existeContato(int posicao) {
 		if (contatos[posicao - 1] == null)
 			return false;
@@ -61,7 +69,7 @@ public class Agenda {
 	}
 
 	public String exibeContato(int posicao) {
-		return contatos[posicao].toString();
+		return contatos[posicao - 1].toString();
 	}
 
 	public String listaContatos() {
@@ -74,6 +82,51 @@ public class Agenda {
 		}
 
 		return saida;
+	}
+
+	private int getPosicaoFavorito(String nome, String sobrenome) {
+		for (int i = 0; i < this.favoritos.length; i++) {
+			if (this.favoritos[i] != null) {
+				if (this.favoritos[i].getNome().equals(nome) && this.favoritos[i].getSobrenome().equals(sobrenome)) {
+					return i + 1;
+				}
+			}
+		}
+		return -1;
+	}
+
+	public void adicionaFavorito(int posicaoContato, int posicaoFavorito) {
+		if (contatos[posicaoContato - 1] != null) {
+			if (this.favoritos[posicaoFavorito - 1] != null)
+				this.favoritos[posicaoFavorito - 1].desfavoritar();
+
+			String nome = this.contatos[posicaoContato - 1].getNome();
+			String sobrenome = this.contatos[posicaoContato - 1].getSobrenome();
+			if (this.verificaFavorito(nome, sobrenome)){
+				int index = this.getPosicaoFavorito(nome, sobrenome);
+				this.removeFavorito(index);
+			}
+
+			favoritos[posicaoFavorito - 1] = contatos[posicaoContato - 1];
+			contatos[posicaoContato - 1].favoritar();
+		}
+	}
+
+	public String listaFavoritos() {
+		String saida = "\n";
+
+		for (int i = 0; i < this.favoritos.length; i++) {
+			if (this.favoritos[i] != null) {
+				saida += (i + 1) + " - " + this.favoritos[i].getNome() + " " + this.favoritos[i].getSobrenome() + "\n";
+			}
+		}
+
+		return saida;
+	}
+
+	public void removeFavorito(int posicao) {
+		this.favoritos[posicao - 1].desfavoritar();
+		this.favoritos[posicao - 1] = null;
 	}
 
 	/**
