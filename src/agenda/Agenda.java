@@ -2,6 +2,8 @@ package agenda;
 
 import java.util.Arrays;
 
+import org.junit.jupiter.api.extension.ConditionEvaluationResult;
+
 /**
  * Uma agenda que mantém uma lista de contatos com posições. Podem existir 100 contatos. 
  * 
@@ -38,9 +40,10 @@ public class Agenda {
 		return contatos[posicao];
 	}
 	
-	public boolean VerificaContato(String nome, String sobrenome) {
+	public boolean verificaContato(String nome, String sobrenome) {
 		for(int i = 0; i < contatos.length; i++) {
-			if (contatos[i].getNome() == nome) return true;
+			if (contatos[i] == null) continue;
+			if (contatos[i].getNome().equals(nome) && contatos[i].getSobrenome().equals(sobrenome)) return true;
 		}
 		return false;
 	}

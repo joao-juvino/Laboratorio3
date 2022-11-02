@@ -137,10 +137,9 @@ public class MainAgenda {
 
 		if (posicao < 0 || posicao > 100) {
 			System.out.println("\nPOSIÇÃO INVÁLIDA");
-		} else if(agenda.VerificaContato(nome, sobrenome)){
+		} else if (agenda.verificaContato(nome, sobrenome)) {
 			System.out.println("\nCONTATO JA CADASTRADO");
-		}
-		else if (nome.equals("") || telefone.equals("")) {
+		} else if (nome.equals("") || telefone.equals("")) {
 			System.out.println("\nCONTATO INVALIDO");
 		} else {
 			agenda.cadastraContato(posicao, nome, sobrenome, telefone);
