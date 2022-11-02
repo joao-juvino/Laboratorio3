@@ -6,6 +6,7 @@ public class Contato {
 		private String nome;
 		private String sobrenome;
 		private String telefone;
+		private boolean favorito;
 
 	public Contato(String nome, String sobrenome, String telefone) {
 		 if(nome == null || sobrenome == null) {
@@ -18,7 +19,7 @@ public class Contato {
 		 this.nome = nome;
 		 this.sobrenome = sobrenome;
 		 this.telefone = telefone;
-		 
+		 this.favorito = false;
 	}
 	
 	@Override
